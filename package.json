@@ -1,0 +1,33 @@
+{
+  "name": "learning-vue",
+  "version": "1.0.0",
+  "description": "Learning Vue by creating real-world applications",
+  "type": "module",
+  "private": true,
+  "workspaces": [
+    "projects/*",
+    "courses/*"
+  ],
+  "scripts": {
+    "commit": "sui-mono commit"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/chicho69-cesar/learning-vue.git"
+  },
+  "bugs": {
+    "url": "https://github.com/chicho69-cesar/learning-vue/issues"
+  },
+  "homepage": "https://github.com/chicho69-cesar/learning-vue#readme",
+  "author": "Cesar Villalobos Olmos",
+  "license": "ISC",
+  "keywords": [
+    "Vue",
+    "JavaScript",
+    "TypeScript",
+    "Frontend"
+  ],
+  "dependencies": {
+    "@s-ui/mono": "2.45.0"
+  }
+}
