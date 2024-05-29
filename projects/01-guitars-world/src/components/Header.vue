@@ -2,26 +2,26 @@
   import { computed } from "vue"
 
   const props = defineProps({
-    carrito: {
+    cart: {
       type: Array,
       required: true,
     },
-    guitarraHeader: {
+    headerGuitar: {
       type: Object,
       required: true,
     },
   })
 
   defineEmits([
-    "decrementar-cantidad",
-    "incrementar-cantidad",
-    "agregar-carrito",
-    "eliminar-producto",
-    "vaciar-carrito",
+    "decrease-quantity",
+    "increase-quantity",
+    "add-to-cart",
+    "remove-from-cart",
+    "empty-cart",
   ])
 
-  const totalPagar = computed(() => {
-    return props.carrito.reduce((total, producto) => total + producto.cantidad * producto.precio, 0)
+  const totalToPay = computed(() => {
+    return props.cart.reduce((total, product) => total + product.quantity * product.price, 0)
   })
 </script>
 
@@ -40,7 +40,7 @@
             <img class="img-fluid" src="/img/carrito.png" alt="imagen carrito" />
 
             <div id="carrito" class="bg-white p-3">
-              <p v-if="carrito.length === 0" class="text-center m-0">El carrito esta vació</p>
+              <p v-if="cart.length === 0" class="text-center m-0">El carrito esta vació</p>
               <div v-else>
                 <table class="w-100 table">
                   <thead>
@@ -54,33 +54,33 @@
                   </thead>
 
                   <tbody>
-                    <tr v-for="producto in carrito" :key="producto.id">
+                    <tr v-for="product in cart" :key="product.id">
                       <td>
                         <img
                           class="img-fluid"
-                          :src="'/img/' + producto.imagen + '.jpg'"
-                          :alt="'imagen guitarra ' + producto.nombre"
+                          :src="'/img/' + product.image + '.jpg'"
+                          :alt="'imagen guitarra ' + product.name"
                         />
                       </td>
 
-                      <td>{{ producto.nombre }}</td>
-                      <td class="fw-bold">${{ producto.precio }}</td>
+                      <td>{{ product.name }}</td>
+                      <td class="fw-bold">${{ product.price }}</td>
                       
                       <td class="flex align-items-start gap-4">
                         <button
                           type="button"
                           class="btn btn-dark"
-                          @click="$emit('decrementar-cantidad', producto.id)"
+                          @click="$emit('decrease-quantity', product.id)"
                         >
                           -
                         </button>
 
-                        {{ producto.cantidad }}
+                        {{ product.quantity }}
                         
                         <button
                           type="button"
                           class="btn btn-dark"
-                          @click="$emit('incrementar-cantidad', producto.id)"
+                          @click="$emit('increase-quantity', product.id)"
                         >
                           +
                         </button>
@@ -90,7 +90,7 @@
                         <button
                           class="btn btn-danger"
                           type="button"
-                          @click="$emit('eliminar-producto', producto.id)"
+                          @click="$emit('remove-from-cart', product.id)"
                         >
                           X
                         </button>
@@ -100,10 +100,10 @@
                 </table>
 
                 <p class="text-end">
-                  Total pagar: <span class="fw-bold">${{ totalPagar }}</span>
+                  Total pagar: <span class="fw-bold">${{ totalToPay }}</span>
                 </p>
 
-                <button class="btn btn-dark w-100 mt-3 p-2" @click="$emit('vaciar-carrito')">
+                <button class="btn btn-dark w-100 mt-3 p-2" @click="$emit('empty-cart')">
                   Vaciar Carrito
                 </button>
               </div>
@@ -114,18 +114,18 @@
 
       <div class="row mt-5">
         <div class="col-md-6 text-center text-md-start pt-5">
-          <h1 class="display-2 fw-bold">Modelo {{ guitarraHeader.nombre }}</h1>
+          <h1 class="display-2 fw-bold">Modelo {{ headerGuitar.name }}</h1>
           
           <p class="mt-5 fs-5 text-white">
-            {{ guitarraHeader.descripcion }}
+            {{ headerGuitar.description }}
           </p>
 
-          <p class="text-primary fs-1 fw-black">${{ guitarraHeader.precio }}</p>
+          <p class="text-primary fs-1 fw-black">${{ headerGuitar.price }}</p>
           
           <button
             type="button"
             class="btn fs-4 bg-primary text-white py-2 px-5"
-            @click="$emit('agregar-carrito', guitarraHeader)"
+            @click="$emit('add-to-cart', headerGuitar)"
           >
             Agregar al Carrito
           </button>
