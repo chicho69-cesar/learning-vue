@@ -5,14 +5,14 @@
   import Header from "./components/Header.vue"
   import Footer from "./components/Footer.vue"
 
-  const guitarras = ref([])
-  const carrito = ref([])
-  const guitarraHeader = ref({})
+  const guitars = ref([])
+  const cart = ref([])
+  const headerGuitar = ref({})
 
   watch(
-    carrito,
+    cart,
     () => {
-      guardarLocalStorage()
+      saveInLocalStorage()
     },
     {
       deep: true,
@@ -20,72 +20,73 @@
   )
 
   onMounted(() => {
-    guitarras.value = db
-    guitarraHeader.value = db[3]
+    guitars.value = db
+    headerGuitar.value = db[3]
 
-    const carritoStorage = localStorage.getItem("carrito")
+    const cartStorage = localStorage.getItem("cart")
     
-    if (carritoStorage) {
-      carrito.value = JSON.parse(carritoStorage)
+    if (cartStorage) {
+      cart.value = JSON.parse(cartStorage)
     }
   })
 
-  const guardarLocalStorage = () => {
-    localStorage.setItem("carrito", JSON.stringify(carrito.value))
+  const saveInLocalStorage = () => {
+    localStorage.setItem("cart", JSON.stringify(cart.value))
   }
 
-  const agregarCarrito = (guitarra) => {
-    const existeCarrito = carrito.value.findIndex((producto) => producto.id === guitarra.id)
+  const addToCart = (guitar) => {
+    const existsInCart = cart.value.findIndex((product) => product.id === guitar.id)
     
-    if (existeCarrito >= 0) {
-      carrito.value[existeCarrito].cantidad++
+    if (existsInCart >= 0) {
+      cart.value[existsInCart].quantity++
     } else {
-      alert("Se ha añadido la guitarra al carrito")
-      guitarra.cantidad = 1
-      carrito.value.push(guitarra)
+      alert("Se ha añadido la guitar al cart")
+      guitar.quantity = 1
+      cart.value.push(guitar)
     }
   }
 
-  const decrementarCantidad = (id) => {
-    const index = carrito.value.findIndex((producto) => producto.id === id)
-    if (carrito.value[index].cantidad <= 1) return
-    carrito.value[index].cantidad--
+  const decreaseQuantity = (id) => {
+    const index = cart.value.findIndex((product) => product.id === id)
+    if (cart.value[index].quantity <= 1) return
+    cart.value[index].quantity--
   }
 
-  const incrementarCantidad = (id) => {
-    const index = carrito.value.findIndex((producto) => producto.id === id)
-    if (carrito.value[index].cantidad >= 5) return
-    carrito.value[index].cantidad++
+  const increaseQuantity = (id) => {
+    const index = cart.value.findIndex((product) => product.id === id)
+    if (cart.value[index].quantity >= 5) return
+    cart.value[index].quantity++
   }
 
-  const eliminarProducto = (id) => {
-    carrito.value = carrito.value.filter((producto) => producto.id !== id)
+  const removeFromCart = (id) => {
+    cart.value = cart.value.filter((product) => product.id !== id)
   }
 
-  const vaciarCarrito = () => {
-    carrito.value = []
+  const emptyCart = () => {
+    cart.value = []
   }
 </script>
 
 <template>
   <Header
-    :carrito="carrito"
-    :guitarraHeader="guitarraHeader"
-    @decrementar-cantidad="decrementarCantidad"
-    @incrementar-cantidad="incrementarCantidad"
-    @agregar-carrito="agregarCarrito"
-    @eliminar-producto="eliminarProducto"
-    @vaciar-carrito="vaciarCarrito"
+    :cart="cart"
+    :headerGuitar="headerGuitar"
+    @decrease-quantity="decreaseQuantity"
+    @increase-quantity="increaseQuantity"
+    @add-to-cart="addToCart"
+    @remove-from-cart="removeFromCart"
+    @empty-cart="emptyCart"
   />
 
   <main class="container-xl mt-5">
     <h2 class="text-center">Nuestra Colección</h2>
+
     <div class="row mt-5">
       <Guitar
-        v-for="guitarra in guitarras"
-        :key="guitarra.id"
-        :guitarra="guitarra"
-        @agregar-carrito="agregarCarrito"
+        v-for="guitar in guitars"
+        :key="guitar.id"
+        :guitar="guitar"
+        @add-to-cart="addToCart"
       />
     </div>
   </main>
