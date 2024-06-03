@@ -1,18 +1,18 @@
 <script setup>
   import { ref, computed } from "vue"
 
-  import cerrarModal from "../assets/img/cerrar.svg"
-  import Alerta from "./Alerta.vue"
+  import closeModal from "../assets/img/cerrar.svg"
+  import Alert from "./Alert.vue"
 
   const error = ref("")
 
   const emit = defineEmits([
-    "ocultar-modal",
-    "guardar-gasto",
-    "update:nombre",
-    "update:cantidad",
-    "update:categoria",
-    "eliminar-gasto",
+    "close-modal",
+    "save-expense",
+    "delete-expense",
+    "update:name",
+    "update:quantity",
+    "update:category",
   ])
 
   const props = defineProps({
@@ -20,19 +20,19 @@
       type: Object,
       required: true,
     },
-    nombre: {
+    name: {
       type: String,
       required: true,
     },
-    cantidad: {
+    quantity: {
       type: [String, Number],
       required: true,
     },
-    categoria: {
+    category: {
       type: String,
       required: true,
     },
-    disponible: {
+    available: {
       type: Number,
       required: true,
     },
@@ -44,112 +44,121 @@
 
   const old = props.cantidad
 
-  const agregarGasto = () => {
-    // Validar que no haya campos vacios
-    const { nombre, cantidad, categoria, disponible, id } = props
-    if ([nombre, cantidad, categoria].includes("")) {
+  const addExpense = () => {
+    const { name, quantity, category, available, id } = props
+  
+    if ([name, quantity, category].includes("")) {
       error.value = "Todos los campos son obligatorios"
+
       setTimeout(() => {
         error.value = ""
       }, 3000)
+
       return
     }
 
-    // Validar la cantidad
-    if (cantidad <= 0) {
+    if (quantity <= 0) {
       error.value = "Cantidad no válida"
+
       setTimeout(() => {
         error.value = ""
       }, 3000)
+
       return
     }
 
-    // Validar si el usuario excede el saldo disponible
     if (id) {
-      // Tomar en cuenta el gasto ya realizado
-      if (cantidad > old + disponible) {
+      if (quantity > old + available) {
         error.value = "Has excedido el saldo disponible"
+
         setTimeout(() => {
           error.value = ""
         }, 3000)
+
         return
       }
     } else {
-      if (cantidad > disponible) {
+      if (quantity > available) {
         error.value = "Has excedido el saldo disponible"
+
         setTimeout(() => {
           error.value = ""
         }, 3000)
+
         return
       }
     }
 
-    emit("guardar-gasto")
+    emit("save-expense")
   }
 
-  const isEditting = computed(() => {
+  const isEditing = computed(() => {
     return props.id
   })
 </script>
 
 <template>
   <div class="modal">
-    <div class="cerrar-modal">
-      <img :src="cerrarModal" alt="ico cerrar modal" @click="$emit('ocultar-modal')" />
+    <div class="close-modal">
+      <img :src="closeModal" alt="ico close modal" @click="$emit('close-modal')" />
     </div>
 
-    <div class="contenedor contenedor-formulario" :class="[modal.animar ? 'animar' : 'cerrar']">
-      <form class="nuevo-gasto" @submit.prevent="agregarGasto">
-        <legend>{{ isEditting ? "Guardar Cambios" : "Añadir Gasto" }}</legend>
+    <div class="container form-container" :class="[modal.animate ? 'animate' : 'close']">
+      <form class="new-expense" @submit.prevent="addExpense">
+        <legend>{{ isEditing ? "Guardar Cambios" : "Añadir Gasto" }}</legend>
 
-        <Alerta v-if="error">{{ error }}</Alerta>
+        <Alert v-if="error">{{ error }}</Alert>
 
-        <div class="campo">
-          <label for="nombre">Nombre gasto:</label>
+        <div class="field">
+          <label for="name">Nombre gasto:</label>
+
           <input
             type="text"
-            id="nombre"
+            id="name"
             placeholder="Añade el nombre del gasto"
-            :value="nombre"
-            @input="$emit('update:nombre', $event.target.value)"
+            :value="name"
+            @input="$emit('update:name', $event.target.value)"
           />
         </div>
 
-        <div class="campo">
-          <label for="cantidad">Cantidad:</label>
+        <div class="field">
+          <label for="quantity">Cantidad:</label>
+
           <input
             type="number"
-            id="cantidad"
+            id="quantity"
             placeholder="Añade la cantidad del gasto"
-            :value="cantidad"
-            @input="$emit('update:cantidad', +$event.target.value)"
+            :value="quantity"
+            @input="$emit('update:quantity', +$event.target.value)"
           />
         </div>
 
-        <div class="campo">
-          <label for="categoria">Categoría:</label>
+        <div class="field">
+          <label for="category">Categoría:</label>
+
           <select
-            id="categoria"
-            :value="categoria"
-            @input="$emit('update:categoria', $event.target.value)"
+            id="category"
+            :value="category"
+            @input="$emit('update:category', $event.target.value)"
           >
             <option value="">-- Seleccione --</option>
-            <option value="ahorro">Ahorro</option>
-            <option value="comida">Comida</option>
-            <option value="casa">Casa</option>
-            <option value="gastos">Gastos varios</option>
-            <option value="ocio">Ocio</option>
-            <option value="salud">Salud</option>
-            <option value="suscripciones">Suscripciones</option>
+            <option value="savings">Ahorro</option>
+            <option value="food">Comida</option>
+            <option value="home">Casa</option>
+            <option value="expenses">Gastos varios</option>
+            <option value="leisure">Ocio</option>
+            <option value="health">Salud</option>
+            <option value="subscriptions">Suscripciones</option>
           </select>
         </div>
 
-        <input type="submit" :value="[isEditting ? 'Guardar Cambios' : 'Añadir Gasto']" />
+        <input type="submit" :value="[isEditing ? 'Guardar Cambios' : 'Añadir Gasto']" />
+        
         <button
           type="button"
-          class="btn-eliminar"
-          v-if="isEditting"
-          @click="$emit('eliminar-gasto')"
+          class="btn-delete"
+          v-if="isEditing"
+          @click="$emit('delete-expense')"
         >
           Eliminar Gasto
         </button>
@@ -168,51 +177,52 @@
     left: 0;
   }
 
-  .cerrar-modal {
+  .close-modal {
     position: absolute;
     right: 3rem;
     top: 3rem;
   }
 
-  .cerrar-modal img {
+  .close-modal img {
     width: 3rem;
     cursor: pointer;
   }
 
-  .contenedor-formulario {
+  .form-container {
     transition-property: all;
     transition-duration: 300ms;
     transition-timing-function: ease-in;
     opacity: 0;
   }
 
-  .animar {
+  .animate {
     opacity: 1;
   }
 
-  .cerrar {
+  .close {
     opacity: 0;
   }
 
-  .nuevo-gasto {
+  .new-expense {
     margin: 10rem auto 0 auto;
     display: grid;
     gap: 2rem;
   }
 
-  .nuevo-gasto legend {
+  .new-expense legend {
     text-align: center;
     color: var(--blanco);
     font-size: 3rem;
     font-weight: 700;
   }
-  .campo {
+
+  .field {
     display: grid;
     gap: 2rem;
   }
 
-  .nuevo-gasto input,
-  .nuevo-gasto select {
+  .new-expense input,
+  .new-expense select {
     background-color: var(--gris-claro);
     border-radius: 1rem;
     padding: 1rem;
@@ -220,23 +230,23 @@
     font-size: 2.2rem;
   }
 
-  .nuevo-gasto label {
+  .new-expense label {
     color: var(--blanco);
     font-size: 3rem;
   }
 
-  .nuevo-gasto input[type="submit"] {
+  .new-expense input[type="submit"] {
     background-color: var(--azul);
     color: var(--blanco);
     font-weight: 700;
     cursor: pointer;
   }
 
-  .nuevo-gasto input[type="submit"]:hover {
+  .new-expense input[type="submit"]:hover {
     background-color: #3475dd;
   }
 
-  .btn-eliminar {
+  .btn-delete {
     padding: 1rem;
     width: 100%;
     border: none;

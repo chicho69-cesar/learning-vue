@@ -1,23 +1,24 @@
-export const formatearCantidad = (cantidad) => {
+export const quantityFormatter = (cantidad) => {
   return Number(cantidad).toLocaleString("es-US", {
     style: "currency",
     currency: "USD",
   })
 }
 
-export const generarId = () => {
-  const fecha = Date.now().toString(36)
+export const generateId = () => {
+  const date = Date.now().toString(36)
   const random = Math.random().toString(36).substring(2)
-  return random + fecha
+  return random + date
 }
 
-export const formatearFecha = (fecha) => {
-  const fechaNueva = new Date(fecha)
-  const opciones = {
+export const dateFormatter = (fecha) => {
+  const newDate = new Date(fecha)
+
+  const options = {
     year: "numeric",
     month: "long",
     day: "2-digit",
   }
-  
-  return fechaNueva.toLocaleDateString("es-ES", opciones)
+
+  return newDate.toLocaleDateString("es-ES", options)
 }
