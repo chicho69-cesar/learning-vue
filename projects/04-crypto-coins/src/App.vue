@@ -1,36 +1,92 @@
 <script setup>
-  import HelloWorld from './components/HelloWorld.vue'
+  import { ref, reactive } from "vue"
+
+  import Alert from "./components/Alert.vue"
+  import Spinner from "./components/Spinner.vue"
+  import Quote from "./components/Quote.vue"
+  import useCrypto from "./composables/useCrypto"
+
+  const { currencies, cryptoCurrencies, quote, loading, showResult, getQuote } = useCrypto()
+
+  const error = ref("")
+
+  const quoting = reactive({
+    currency: "",
+    cryptoCurrency: "",
+  })
+
+  const quotingCrypto = () => {
+    if (Object.values(quoting).includes("")) {
+      error.value = "Todos los fields son obligatorios"
+      return
+    }
+
+    error.value = ""
+    getQuote(quoting)
+  }
 </script>
 
 <template>
   <div>
-    <div>
-      <a href='https://vitejs.dev' target='_blank'>
-        <img src='/vite.svg' class='logo' alt='Vite logo' />
-      </a>
+    <div class="container">
+      <h1 class="title">Cotizador de <span>Criptomonedas</span></h1>
+      
+      <div class="content">
+        <Alert v-if="error">
+          {{ error }}
+        </Alert>
 
-      <a href='https://vuejs.org/' target='_blank'>
-        <img src='./assets/vue.svg' class='logo vue' alt='Vue logo' />
-      </a>
+        <form class="form" @submit.prevent="quotingCrypto">
+          <div class="field">
+            <label for="currency">Moneda:</label>
+
+            <select id="currency" v-model="quoting.currency">
+              <option value="">-- Seleccione --</option>
+              <option v-for="currency in currencies" :value="currency.code" :key="currency.code">
+                {{ currency.text }}
+              </option>
+            </select>
+          </div>
+
+          <div class="field">
+            <label for="crypto">Criptomoneda:</label>
+
+            <select id="crypto" v-model="quoting.cryptoCurrency">
+              <option value="">-- Seleccione --</option>
+              <option v-for="cryptoCurrency in cryptoCurrencies" :value="cryptoCurrency.CoinInfo.Name" :key="cryptoCurrency.CoinInfo.Name">
+                {{ cryptoCurrency.CoinInfo.FullName }}
+              </option>
+            </select>
+          </div>
+
+          <input type="submit" value="Cotizar" />
+        </form>
+
+        <Spinner v-if="loading" />
+        <Quote v-if="showResult" :quote="quote" />
+      </div>
     </div>
-
-    <HelloWorld msg='Vite + Vue' />
   </div>
 </template>
 
-<style scoped>
-  .logo {
-    height: 6em;
-    padding: 1.5em;
-    will-change: filter;
-    transition: filter 300ms;
+<style>
+  /* width */
+  ::-webkit-scrollbar {
+    width: 10px;
   }
 
-  .logo:hover {
-    filter: drop-shadow(0 0 2em #646cffaa);
+  /* Track */
+  ::-webkit-scrollbar-track {
+    background: #18223d;
   }
-  
-  .logo.vue:hover {
-    filter: drop-shadow(0 0 2em #42b883aa);
+
+  /* Handle */
+  ::-webkit-scrollbar-thumb {
+    background: #87caf3;
+  }
+
+  /* Handle on hover */
+  ::-webkit-scrollbar-thumb:hover {
+    background: #6ca2c4;
   }
 </style>
