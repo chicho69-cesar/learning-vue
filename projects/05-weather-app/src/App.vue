@@ -1,36 +1,22 @@
 <script setup>
-  import HelloWorld from './components/HelloWorld.vue'
+  import Form from "./components/Form.vue"
+  import Weather from "./components/Weather.vue"
+  import Spinner from "./components/Spinner.vue"
+  import Alert from "./components/Alert.vue"
+  import useWeather from "./composables/useWeather"
+
+  const { weather, error, loading, showWeather, getWeather, temperatureFormatter } = useWeather()
 </script>
 
 <template>
-  <div>
-    <div>
-      <a href='https://vitejs.dev' target='_blank'>
-        <img src='/vite.svg' class='logo' alt='Vite logo' />
-      </a>
+  <header>
+    <h1 class="title">Buscador de Clima</h1>
+  </header>
 
-      <a href='https://vuejs.org/' target='_blank'>
-        <img src='./assets/vue.svg' class='logo vue' alt='Vue logo' />
-      </a>
-    </div>
-
-    <HelloWorld msg='Vite + Vue' />
+  <div class="container weather-searcher">
+    <Form @get-weather="getWeather" />
+    <Spinner v-if="loading" />
+    <Alert v-if="error">{{ error }}</Alert>
+    <Weather v-if="showWeather" :weather="weather" />
   </div>
 </template>
-
-<style scoped>
-  .logo {
-    height: 6em;
-    padding: 1.5em;
-    will-change: filter;
-    transition: filter 300ms;
-  }
-
-  .logo:hover {
-    filter: drop-shadow(0 0 2em #646cffaa);
-  }
-
-  .logo.vue:hover {
-    filter: drop-shadow(0 0 2em #42b883aa);
-  }
-</style>
