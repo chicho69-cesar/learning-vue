@@ -1,0 +1,24 @@
+{
+  "clients": [
+    {
+      "name": "John",
+      "lastName": "Doe",
+      "email": "john@gmail.com",
+      "phone": "123-123-4321",
+      "business": "VUE",
+      "position": "Designer",
+      "state": true,
+      "id": "3"
+    },
+    {
+      "name": "Jane",
+      "lastName": "Doe",
+      "email": "jane@gmail.com",
+      "phone": "123-123-4321",
+      "business": "VITE",
+      "position": "Developer",
+      "state": false,
+      "id": "4"
+    }
+  ]
+}
