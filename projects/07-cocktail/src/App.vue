@@ -1,36 +1,41 @@
 <script setup>
-  import HelloWorld from './components/HelloWorld.vue'
+  import { RouterView } from 'vue-router'
+  import Header from './components/Header.vue'
+  import Modal from './components/Modal.vue'
+  import Notification from './components/Notification.vue'
 </script>
 
 <template>
   <div>
-    <div>
-      <a href='https://vitejs.dev' target='_blank'>
-        <img src='/vite.svg' class='logo' alt='Vite logo' />
-      </a>
+    <Header />
 
-      <a href='https://vuejs.org/' target='_blank'>
-        <img src='./assets/vue.svg' class='logo vue' alt='Vue logo' />
-      </a>
-    </div>
+    <main class="container mx-auto mt-10">
+      <RouterView />
+    </main>
 
-    <HelloWorld msg='Vite + Vue' />
+    <Modal />
+    <Notification />
   </div>
 </template>
 
-<style scoped>
-  .logo {
-    height: 6em;
-    padding: 1.5em;
-    will-change: filter;
-    transition: filter 300ms;
-  }
-  
-  .logo:hover {
-    filter: drop-shadow(0 0 2em #646cffaa);
+<style>
+  /* width */
+  ::-webkit-scrollbar {
+    width: 10px;
   }
 
-  .logo.vue:hover {
-    filter: drop-shadow(0 0 2em #42b883aa);
+  /* Track */
+  ::-webkit-scrollbar-track {
+    background: #fff;
+  }
+
+  /* Handle */
+  ::-webkit-scrollbar-thumb {
+    background: #ea7437;
+  }
+
+  /* Handle on hover */
+  ::-webkit-scrollbar-thumb:hover {
+    background: #d35f25;
   }
 </style>
