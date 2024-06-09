@@ -9,10 +9,25 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "vue": "3.4.21"
+    "@mdi/font": "7.4.47",
+    "@vue-leaflet/vue-leaflet": "0.10.1",
+    "firebase": "10.12.2",
+    "leaflet": "1.9.4",
+    "pinia": "2.1.7",
+    "uid": "2.0.2",
+    "vee-validate": "4.13.1",
+    "vue": "3.4.21",
+    "vue-router": "4.3.2",
+    "vuefire": "3.1.23",
+    "vuetify": "3.6.8"
   },
   "devDependencies": {
+    "@rushstack/eslint-patch": "1.10.3",
     "@vitejs/plugin-vue": "5.0.4",
+    "@vue/eslint-config-prettier": "9.0.0",
+    "eslint": "9.4.0",
+    "eslint-plugin-vue": "9.26.0",
+    "prettier": "3.3.1",
     "vite": "5.2.0"
   }
 }
