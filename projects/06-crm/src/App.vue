@@ -9,6 +9,8 @@
   <Header />
 
   <main class="max-w-6xl mx-auto mt-10">
+    <!-- El componente RouterView es el componente donde se va a renderizar
+    el router de nuestra pagina. -->
     <RouterView />
   </main>
 </template>
