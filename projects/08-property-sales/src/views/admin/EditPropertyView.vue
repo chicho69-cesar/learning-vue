@@ -15,8 +15,13 @@
   const items = [1, 2, 3, 4, 5]
   const { url, uploadImage, image } = useImage()
   const { zoom, center, pin } = useLocationMap()
+
+  /* Utilizamos nuestro composable de useForm para trabajar con 
+  elementos de formularios. */
   const { handleSubmit } = useForm({ validationSchema })
 
+  /* Creamos definiciones de useField para manejar las validaciones
+  de cada uno de los campos en un formulario. */
   const title = useField('title')
   const picture = useField('picture')
   const price = useField('price')

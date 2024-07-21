@@ -27,6 +27,9 @@ const router = createRouter({
       name: 'admin',
       component: () => import('../views/admin/AdminLayout.vue'),
       meta: { requiresAuth: true },
+      /* En las rutas de nuestro router podemos definir rutas hijas de
+      otras rutas, asi el path sera una combinación de la path del padre
+      mas la path de las rutas hijas. */
       children: [
         {
           path: 'properties',
@@ -48,6 +51,10 @@ const router = createRouter({
   ]
 })
 
+/* Creamos un middleware para nuestro router, asi esta función se 
+ejecutara antes de ingresar a cada ruta, de esta forma podemos por ejemplo
+y como se ve en este ejemplo validar que un usuario este loggeado en el
+sistema. */
 router.beforeEach(async (to, from, next) => {
   const requiresAuth = to.matched.some((url) => url.meta.requiresAuth)
   

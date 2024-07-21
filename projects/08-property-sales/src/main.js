@@ -17,18 +17,25 @@ import router from './router'
 
 const app = createApp(App)
 
+/* Creamos una instancia de vuetify para configurar lo en la aplicación,
+este paquete nos ayuda a trabajar con Material Design en Vue. */
 const vuetify = createVuetify({
   components,
   directives
 })
 
+/* Configuramos nuestra aplicación para usar vuefire, el cual es un 
+modulo para trabajar con firebase en Vue. */
 app.use(VueFire, {
   firebaseApp,
   modules: [VueFireAuth]
 })
 
 app.use(createPinia())
+
+/* Configuramos nuestra aplicación para utilizar vuetify */
 app.use(vuetify)
+
 app.use(router)
 
 app.mount('#app')

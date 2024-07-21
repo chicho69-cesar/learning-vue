@@ -6,6 +6,9 @@
 </script>
 
 <template>
+  <!-- Para utilizar los componentes de vuetify con los elementos
+  Material Design debemos de utilizar este estilo de componentes
+  llamados web components. -->
   <v-card elevation="3" max-width="1200" class="mx-auto">
     <v-layout>
       <v-app-bar color="deep-purple-darken-1">
