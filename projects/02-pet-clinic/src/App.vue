@@ -8,6 +8,10 @@
 
   const patients = ref([])
 
+  /* La función reactive nos permite crear un objeto reactivos, es decir,
+  que si alguna de las propiedades del objeto cambia, el componente se
+  renderiza nuevamente. Por lo que es muy util para trabajar con 
+  formularios reactivos. */
   const patient = reactive({
     id: null,
     name: "",
@@ -72,6 +76,9 @@
     <Header />
 
     <div class="mt-12 md:flex">
+      <!-- Para vincular un valor reactivo con una prop de un elemento
+      como un formulario utilizamos la directiva v-model, para que cuando
+      cambie el valor reactivo se vuelva a renderizar el componente hijo -->
       <Form
         v-model:name="patient.name"
         v-model:property="patient.property"

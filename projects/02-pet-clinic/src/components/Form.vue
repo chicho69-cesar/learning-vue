@@ -85,6 +85,10 @@
     >
       <div class="mb-5">
         <label for="mascota" class="block uppercase font-bold"> Nombre mascota </label>
+        <!-- Para manejar cuando cambia el valor de un campo de un formulario
+        utilizamos la función @input el cual manda un $event con un campo
+        target que apunta al objeto input y el value es el que contiene el valor
+        del campo del formulario. -->
         <input
           id="mascota"
           type="text"
