@@ -6,6 +6,9 @@
   import Quote from "./components/Quote.vue"
   import useCrypto from "./composables/useCrypto"
 
+  /* Aquí utilizamos nuestro composable useCrypto, el cual nos permite 
+  separar la lógica del manejo de las criptomonedas en un archivo independiente
+  y de esta forma poder reutilizarlo en otros componentes. */
   const { currencies, cryptoCurrencies, quote, loading, showResult, getQuote } = useCrypto()
 
   const error = ref("")

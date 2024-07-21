@@ -1,5 +1,10 @@
 import { ref, onMounted, computed } from 'vue'
 
+/* Los composables en Vue son funciones similares a los Hooks en React,
+debido a que estos permiten reutilizar la lógica de un componente en otro
+sin la necesidad de duplicar código.
+Para esto se utilizan las funciones reactivas de vue, mediante las cuales
+podemos crear comportamientos personalizados para los componentes. */
 export default function useCrypto() {
   const currencies = ref([
     { code: 'USD', text: 'Dolar de Estados Unidos' },
