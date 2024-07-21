@@ -9,8 +9,7 @@ const product = {
 
 // Reescribir un valor
 product.name = "Monitor Curvo"
-
-// Añadir un valor 
+// Añadir un valor
 product.image = "image.jpg"
 
 delete product.available

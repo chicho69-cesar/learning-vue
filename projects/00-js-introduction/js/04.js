@@ -13,8 +13,7 @@ const { name, price, available } = product
 // console.log(name)
 // console.log(available)
 
-
-// Object literal enhacement
+// Object literal enhancement
 const isAuthenticated = true
 const user = "Juan"
 

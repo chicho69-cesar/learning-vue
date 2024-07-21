@@ -1,7 +1,7 @@
 // Eventos del DOM - Submit
 const form = document.querySelector('#formulario')
 
-form.addEventListener('submit', e => {
+form.addEventListener('submit', (e) => {
   e.preventDefault()
 
   const name = document.querySelector('#nombre').value

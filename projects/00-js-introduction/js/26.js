@@ -11,5 +11,5 @@ inputPassword.addEventListener('input', () => {
 
   setTimeout(() => {
     inputPassword.type = 'password'
-  }, 300);
+  }, 300)
 })

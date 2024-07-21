@@ -1,7 +1,7 @@
 // Eventos del DOM - Submit
 const form = document.querySelector('#formulario')
 
-form.addEventListener('submit', e => {
+form.addEventListener('submit', (e) => {
   e.preventDefault()
 
   // Prevenir alertas duplicadas
@@ -21,7 +21,8 @@ form.addEventListener('submit', e => {
 
     setTimeout(() => {
       alertContainer.remove()
-    }, 3000);
+    }, 3000)
+    
     return
   }
 })

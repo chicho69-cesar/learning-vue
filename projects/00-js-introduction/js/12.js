@@ -12,6 +12,5 @@ const arrayMap = technologyList.map(function (tech) {
   return tech
 })
 
-
 console.log(arrayForEach)
 console.log(arrayMap)

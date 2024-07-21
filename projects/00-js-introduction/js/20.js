@@ -1,4 +1,4 @@
-// Operador ternario - condicion ? si se cumple : si no se cumple
+// Operador ternario - condición ? si se cumple : si no se cumple
 
 const availableQuantity = 100
 const total = 500

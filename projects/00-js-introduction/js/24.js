@@ -8,4 +8,4 @@ nameInput.value = 'Valor por default'
 
 const links = document.querySelectorAll('.navegacion a')
 
-links.forEach(enlace => enlace.textContent = 'Nuevo Texto')
+links.forEach((link) => link.textContent = 'Nuevo Texto')

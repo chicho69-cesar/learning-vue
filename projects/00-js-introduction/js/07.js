@@ -10,7 +10,6 @@ const client = {
 }
 
 // const nuevoObjeto = Object.assign(cliente, producto)
-
 // console.log(nuevoObjeto)
 
 const newObject = {
