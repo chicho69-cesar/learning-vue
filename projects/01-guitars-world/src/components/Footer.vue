@@ -1,3 +1,6 @@
+<!-- En los componentes de Vue no es obligatoria agregar todos los elementos
+de la estructura del SFC, como en este ejemplo donde solo utilizamos 
+el elemento template. -->
 <template>
   <footer class="bg-dark mt-5 py-5">
     <div class="container-xl">

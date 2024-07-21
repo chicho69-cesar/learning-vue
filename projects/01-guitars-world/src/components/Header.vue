@@ -20,6 +20,9 @@
     "empty-cart",
   ])
 
+  /* La función computed nos permite realizar cálculos reactivos, es decir,
+  que si alguna de las variables que se utilizan en el cálculo cambia,
+  el valor de la variable calculada también cambia. */
   const totalToPay = computed(() => {
     return props.cart.reduce((total, product) => total + product.quantity * product.price, 0)
   })
@@ -40,7 +43,12 @@
             <img class="img-fluid" src="/img/carrito.png" alt="imagen carrito" />
 
             <div id="carrito" class="bg-white p-3">
-              <p v-if="cart.length === 0" class="text-center m-0">El carrito esta vació</p>
+              <!-- Para utilizar condicionales en Vue utilizamos la 
+              directiva v-if, v-else-if y v-else. -->
+              <p v-if="cart.length === 0" class="text-center m-0">
+                El carrito esta vació
+              </p>
+
               <div v-else>
                 <table class="w-100 table">
                   <thead>
