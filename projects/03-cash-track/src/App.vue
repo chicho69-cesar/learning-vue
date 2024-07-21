@@ -153,6 +153,9 @@
 </script>
 
 <template>
+  <!-- Si queremos agregar clases condicionadas a un elemento en Vue
+  debemos de poner :class para utilizar un valor del Script, y en este caso
+  si modal.show es true se agrega la clase fix, sino no se agrega nada. -->
   <div :class="{ fix: modal.show }">
     <header>
       <h1>Planificador de Gastos</h1>

@@ -1,5 +1,8 @@
 <template>
   <div class="alert">
+    <!-- Cuando queremos agregar en un componente que el componente pueda
+    tener elementos hijos, como si fuera el elemento children de React, debemos 
+    de utilizar el elemento especial slot. -->
     <slot></slot>
   </div>
 </template>
