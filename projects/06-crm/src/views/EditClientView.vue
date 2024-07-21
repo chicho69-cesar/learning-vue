@@ -43,6 +43,9 @@
 
     <div class="mx-auto mt-10 bg-white shadow">
       <div class="mx-auto md:w-2/3 py-20 px-6">
+        <!-- Utilizamos un elemento del paquete formkit, en este caso un
+        elemento form, donde para realizar el submit utilizamos el evento
+        @submit y ejecutamos la función handleSubmit -->
         <FormKit
           type="form"
           submit-label="Guardar cambios"
@@ -50,6 +53,10 @@
           @submit="handleSubmit"
           :value="formData"
         >
+          <!-- Utilizamos un elemento del paquete formkit, en este caso un
+          elemento text, donde definimos el label, name, placeholder, validación
+          y mensajes de validación, además de utilizar v-model para enlazar
+          el valor del input con la propiedad correspondiente en formData -->
           <FormKit
             type="text"
             label="Nombre*"
