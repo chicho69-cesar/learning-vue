@@ -3,9 +3,14 @@ import { defineStore } from 'pinia'
 import APIService from '../services/api-service'
 import { useModalStore } from './modal'
 
+/* Creamos nuestra store de pinia, la cual sera llamada como 'drinks', y el valor
+que esta store estará dada por lo que regrese el callback que recibe el defineStore */
 export const useDrinksStore = defineStore('drinks', () => {
+  /* Nos suscribimos a un estado global desde la definición de otra store, asi
+  cuando dicho estado cambie hará que esta store también se actualice. */
   const modalStore = useModalStore()
 
+  /* Podemos utilizar los elementos reactivos de vue para crear una store */
   const categories = ref([])
   const search = reactive({
     name: '',
@@ -41,6 +46,8 @@ export const useDrinksStore = defineStore('drinks', () => {
 
   const noRecipes = computed(() => recipes.value.length === 0)
 
+  /* Regresamos un objeto con los elementos que formaran parte de este 
+  estado. */
   return {
     categories,
     search,

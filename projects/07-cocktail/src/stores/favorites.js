@@ -8,6 +8,7 @@ export const useFavoritesStore = defineStore('favorites', () => {
   const drinks = useDrinksStore()
   const modal = useModalStore()
   const notification = useNotificationStore()
+  
   const favorites = ref([])
 
   onMounted(() => {

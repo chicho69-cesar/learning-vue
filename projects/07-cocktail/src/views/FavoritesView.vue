@@ -2,6 +2,10 @@
   import Recipe from '../components/Recipe.vue';
   import { useFavoritesStore } from '../stores/favorites';
 
+  /* Accedemos al valor que nos provee nuestro composable de estado global
+  de pinia, lo que hará que este componente se suscriba a los cambios
+  de este estado, así cada que cambie el estado este componente se volverá
+  a renderizar con el nuevo valor del estado. */
   const favorites = useFavoritesStore();
 </script>
 
